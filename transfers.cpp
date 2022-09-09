@@ -68,6 +68,6 @@ void Transfers::closeIPFinder(QString found)
 {
     disconnect(receiveObject, &tReceive::ipFound, this, &Transfers::closeIPFinder);
 
-    finderClosed(found);
+    emit finderClosed(found);
     receiveObject->deleteLater();
 }

@@ -4,7 +4,7 @@
 #include <QObject>
 #include <QString>
 #include <QDir>
-#include <QtCore/QFile>
+#include <QFile>
 
 #include <QTcpServer>
 #include <QTcpSocket>

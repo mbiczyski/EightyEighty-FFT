@@ -5,7 +5,7 @@
 
 #include <QMainWindow>
 #include <QMessageBox>
-#include <QtCore/QTextStream>
+#include <QTextStream>
 #include <QFileDialog>
 
 namespace Ui {

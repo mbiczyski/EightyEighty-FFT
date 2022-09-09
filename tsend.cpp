@@ -42,7 +42,7 @@ void tSend::sendFile()
     file.open(QIODevice::ReadOnly);
 
     QTextStream fs(&file);
-    QString fileData = fs.readAll();
+    QByteArray fileData = file.readAll();
 
     file.close();
 
@@ -53,13 +53,16 @@ void tSend::sendFile()
           "Connection: close\r\n"
           "Content-Type: application/octet-stream\r\n"
           "Content-Disposition: attachment; filename=" << fileDir.dirName() << "\r\n"
-          "Content-Length: " << file.size() << "\r\n\r\n"
-       << fileData;
+          "Content-Length: " << file.size() << "\r\n\r\n";
+    ts.flush();
+    QDataStream ds(socket);
+    ds << fileData;
 
     socket->close();
 
-    if (socket->state() == QTcpSocket::UnconnectedState)
+    if (socket->state() == QTcpSocket::UnconnectedState || socket->waitForDisconnected(10000))
     {
+        qDebug() << "Socket on port "  << serverPort << "deleted!";
         delete socket;
     }
 
